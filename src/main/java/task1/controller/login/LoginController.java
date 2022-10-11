@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import task1.model.User;
 import task1.utility.InputValidator;
 import task1.utility.LoginUtility;
 
@@ -35,7 +36,7 @@ public class LoginController {
                            HttpSession session,
                            RedirectAttributes ra) {
 
-        System.out.println(password);
+        User user = new User(session);
 
         if (!InputValidator.isValidPassword(password)) {
             ra.addFlashAttribute("redirectMessage", INVALID_PASSWORD_MESSAGE);
