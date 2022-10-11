@@ -9,10 +9,17 @@
 	</head>
 
 	<body>
-			<form:form action="/validate" method="post">
-				<form:input path="password" />
-				<form:button>Submit</form:button>
-
+		<form action="validate" method="post">
+			<fieldset>
+				<legend>Login</legend>
+				<div>
+					<label for="passwordInputBox">Password:</label>
+					<input type="text" name="password" id="passwordInputBox" />
+					<p style="color:red">${redirectMessage}</p>
+				</div>
+				<div>
+					<input type="submit" value="Login" />
+				</div>
 			<a href="${pageContext.request.contextPath}index.html">Return to index</a>
 	</body>
 </html>
