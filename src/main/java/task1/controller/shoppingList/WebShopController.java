@@ -6,12 +6,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.web.util.HtmlUtils;
 import task1.model.Cart;
 import task1.model.Item;
 import task1.utility.SessionUtility;
@@ -97,7 +97,8 @@ public class WebShopController {
             ra.addFlashAttribute("redirectMessage", ITEM_EXISTS_MESSAGE);
             return "redirect:" + WEBSHOP_URL;
         } else {
-            cart.addItem(new Item(item.getName()));
+            // Escape HTML characters when using the item name from the form
+            cart.addItem(new Item(HtmlUtils.htmlEscape(item.getName())));
         }
 
         return "redirect:" + WEBSHOP_URL;

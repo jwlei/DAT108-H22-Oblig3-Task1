@@ -7,7 +7,7 @@ import java.beans.PropertyEditorSupport;
 
 
 @Component
-public class InputValidator extends PropertyEditorSupport {
+public class InputUtility extends PropertyEditorSupport {
 
      private static String PASSWORD;
 
@@ -16,8 +16,8 @@ public class InputValidator extends PropertyEditorSupport {
      * Constructor
      * @param password
      */
-    public InputValidator(@Value("${app.password}")String password) {
-        InputValidator.PASSWORD = password;
+    public InputUtility(@Value("${app.password}")String password) {
+        InputUtility.PASSWORD = password;
     }
 
 
@@ -28,7 +28,6 @@ public class InputValidator extends PropertyEditorSupport {
      */
     public static boolean isValidPassword(String password) {
 
-        System.out.println("Password: " + PASSWORD);
         return password != null && password.equals(PASSWORD);
     }
 }
