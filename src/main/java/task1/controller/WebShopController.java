@@ -1,4 +1,4 @@
-package task1.controller.shoppingList;
+package task1.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
