@@ -14,7 +14,7 @@
 				<legend>Login</legend>
 				<div>
 					<label for="passwordInputBox">Password:</label>
-					<input type="text" name="password" id="passwordInputBox" />
+					<input type="text" name="password" id="passwordInputBox" placeholder="Password is '123'" autocomplete="off"/>
 					<p style="color:red">${redirectMessage}</p>
 				</div>
 				<div>

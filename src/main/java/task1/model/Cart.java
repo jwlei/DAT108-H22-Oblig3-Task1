@@ -4,35 +4,56 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
-    private List<Item> items = new ArrayList<Item>();
+    private List<Item> items = new ArrayList<>();
 
+
+    /**
+     * returns the list of items in the cart
+     * @return List<Item>
+     */
     public List<Item> getItems() {
         return items;
     }
 
+
+    /**
+     * adds an item to the cart
+     * @param item
+     */
     public void addItem(Item item) {
-        /**
-         * Checks if the item is already in the list, if it is, it will not be added.
-         */
-
-        if (items.contains(item)) {
-            int foundAtIndex = items.indexOf(item);
-            items.get(foundAtIndex).setName(item.getName());
-
-        } else {
-            items.add(item);
-        }
+        items.add(item);
     }
 
+
+    /**
+     * removes an item from the cart
+     * @param item
+     */
     public void removeItem(Item item) {
         items.remove(item);
     }
 
-    public int getItem(Item item) {
-        return items.indexOf(item);
-    }
 
+    /**
+     * Empty constructor
+     * Necessary for the @SessionAttributes annotation
+     */
     public Cart() {
     }
 
+
+    /**
+     * Check if the item already exists in the cart
+     * @param item
+     * @return boolean
+     */
+    public boolean itemExists(String item) {
+        return items.contains(item);
+    }
+
+
+    @Override
+    public String toString() {
+        return "CART [" + items + "]";
+    }
 }

@@ -11,19 +11,30 @@
 	<h1>Cart</h1>
 	<form action="addItem" method="post">
 	  <fieldset><legend>Add a new item to cart</legend>
-	       <input type="text" name="item" />
+	       <input type="text" name="item" autocomplete="off"/>
 	    <p><input type="submit" value="Add to cart" /></p>
 		  <span style="color:red">${redirectMessage}</span>
 	  </fieldset>
 	</form>
 
-	<table><tr>
-		<th>Item:</th>
-	</tr>
-		<c:forEach var="item" items="${cart.items}"><tr>
-			<td><button id="remove">Delete</button>${item.name}</td>
-		</tr></c:forEach>
-	</table><br>
+
+	<fieldset>
+		<table>
+			<tr>
+				<th>Item:</th>
+			</tr>
+			<c:forEach var="item" items="${cart.items}">
+				<tr>
+					<td>
+						<form action="removeItem" method="post"  modelAttribute="itemForDeletion">
+						<input type="submit" value="Delete">${item.name}
+						<input type="hidden" name="itemForDeletion" value="${item.name}">
+						</form>
+					</td>
+				</tr>
+			</c:forEach>
+		</table><br>
+	</fieldset>
 	<a href="${pageContext.request.contextPath}index.html">Return to index</a>
 </body>
 

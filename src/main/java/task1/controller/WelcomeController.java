@@ -7,11 +7,12 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 public class WelcomeController {
 
+    /**
+     * Listens for localhost:8080/ and redirects to the landing page
+     * @return RedirectView
+     */
     @RequestMapping(value = "/")
     public RedirectView home() {
-        /*
-         * Redirect to the index page
-         */
         return new RedirectView("index.html");
     }
 }
