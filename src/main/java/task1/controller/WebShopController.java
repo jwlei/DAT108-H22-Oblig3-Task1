@@ -25,7 +25,7 @@ public class WebShopController {
     @Value("${app.message.requiresLogin}") private String REQUIRES_LOGIN_MESSAGE;
     @Value("${app.message.itemExists}") private String ITEM_EXISTS_MESSAGE;
     @Value("${app.message.itemNoExists}") private String ITEM_NO_EXISTS_MESSAGE;
-    @Value("${app.message.itemNameSize}") private String ITEM_NAME_SIZE_MESSAGE;
+    //@Value("${app.message.itemNameSize}") private String ITEM_NAME_SIZE_MESSAGE;
     //@Value("${app.message.itemEmpty}") private String ITEM_EMPTY_MESSAGE;
 
 
