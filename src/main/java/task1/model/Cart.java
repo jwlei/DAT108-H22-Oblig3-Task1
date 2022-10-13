@@ -1,11 +1,12 @@
 package task1.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ShoppingList {
-    private ArrayList<Item> items = new ArrayList<Item>();
+public class Cart {
+    private List<Item> items = new ArrayList<Item>();
 
-    public ArrayList<Item> getItems() {
+    public List<Item> getItems() {
         return items;
     }
 
@@ -23,11 +24,15 @@ public class ShoppingList {
         }
     }
 
+    public void removeItem(Item item) {
+        items.remove(item);
+    }
+
     public int getItem(Item item) {
         return items.indexOf(item);
     }
 
-    public ShoppingList() {
+    public Cart() {
     }
 
 }

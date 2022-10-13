@@ -1,8 +1,7 @@
 package task1.utility;
 
-import task1.model.ShoppingList;
+import task1.model.Cart;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class LoginUtility {
@@ -13,14 +12,20 @@ public class LoginUtility {
         session.invalidate();
     }
 
-    public static void logIn(HttpSession session, String password) {
-        logOff(session);
+    public static void logIn(HttpSession session) {
 
-        session.setMaxInactiveInterval(MAX_INTERACTIVE_INTERVAL);
-        session.setAttribute("shoppingList", new ShoppingList());
+        if (isLoggedIn(session)) {
+            session.getAttribute("cart");
+        } else {
+            session.setMaxInactiveInterval(MAX_INTERACTIVE_INTERVAL);
+            session.setAttribute("cart", new Cart());
+            session.setAttribute("loggedIn", true);
+        }
+
+
     }
 
     public static boolean isLoggedIn(HttpSession session) {
-        return session != null && session.getAttribute("shoppingList") != null;
+        return session != null && session.getAttribute("cart") != null;
     }
 }

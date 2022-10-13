@@ -9,7 +9,7 @@
 	</head>
 
 	<body>
-		<form action="validate" method="post">
+		<form:form action="validate" method="post">
 			<fieldset>
 				<legend>Login</legend>
 				<div>
@@ -20,6 +20,8 @@
 				<div>
 					<input type="submit" value="Login" />
 				</div>
+			</fieldset>
+		</form:form>
 			<a href="${pageContext.request.contextPath}index.html">Return to index</a>
 	</body>
 </html>

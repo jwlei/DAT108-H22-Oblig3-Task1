@@ -18,6 +18,15 @@ public class Item {
     }
 
     @Override
+    public int hashCode() {
+        /**
+         * Used to determine if two objects are equal.
+         * If two objects are equal, they must have the same hash code.
+         */
+        return Objects.hash(name);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         /**
          * Checks if the name of the item is equal to the name of the other item.

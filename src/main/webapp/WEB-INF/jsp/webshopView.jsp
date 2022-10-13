@@ -9,9 +9,9 @@
 
 <body>
 	<h1>My shared list</h1>
-	<form action="webshop" method="post">
+	<form action="addItem" method="post">
 	  <fieldset><legend>Add a new item to basket</legend>
-	       <input type="text" name="item" value="itemValue" />
+	       <input type="text" name="item" />
 	    <p><input type="submit" value="Add to basket" /></p>
 	  </fieldset>
 	</form>
@@ -20,7 +20,7 @@
 		<th>Item:</th>
 	</tr>
 		<c:forEach var="item" items="${cart.items}"><tr>
-			<td>${item.name}</td>
+			<td><button id="remove"></button>${item.name}</td>
 		</tr></c:forEach>
 	</table><br>
 	<a href="${pageContext.request.contextPath}index.html">Return to index</a>
