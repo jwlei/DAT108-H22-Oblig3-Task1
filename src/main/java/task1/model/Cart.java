@@ -2,6 +2,7 @@ package task1.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Cart {
     private List<Item> items = new ArrayList<>();
@@ -47,7 +48,7 @@ public class Cart {
      * @param item
      * @return boolean
      */
-    public boolean itemExists(String item) {
+    public boolean itemExists(Item item) {
         return items.contains(item);
     }
 

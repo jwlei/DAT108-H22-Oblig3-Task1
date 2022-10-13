@@ -2,6 +2,7 @@ package task1.controller.shoppingList;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import task1.model.Cart;
 import task1.model.Item;
@@ -21,8 +23,10 @@ public class WebShopController {
     @Value("${app.url.login}") private String LOGIN_URL;
     @Value("${app.url.webshop}") private String WEBSHOP_URL;
     @Value("${app.message.requiresLogin}") private String REQUIRES_LOGIN_MESSAGE;
-    @Value("${app.message.itemEmpty}") private String ITEM_EMPTY_MESSAGE;
     @Value("${app.message.itemExists}") private String ITEM_EXISTS_MESSAGE;
+    @Value("${app.message.itemNoExists}") private String ITEM_NO_EXISTS_MESSAGE;
+    @Value("${app.message.itemNameSize}") private String ITEM_NAME_SIZE_MESSAGE;
+    //@Value("${app.message.itemEmpty}") private String ITEM_EMPTY_MESSAGE;
 
 
     /**
@@ -48,6 +52,26 @@ public class WebShopController {
 
 
     /**
+     * Validate the item, if valid redirect it to the addItem controller
+     * @param item
+     * @param bindingResult
+     * @param ra
+     * @return viewStringURL
+     */
+    @PostMapping("/addItem")
+    public String validateItem(@Valid @ModelAttribute("item") Item item, BindingResult bindingResult, RedirectAttributes ra) {
+
+        if (bindingResult.hasErrors()) {
+            //ra.addFlashAttribute("redirectMessage", ITEM_NAME_SIZE_MESSAGE);
+            return "redirect:" + WEBSHOP_URL;
+        }
+        ra.addFlashAttribute("item", item);
+
+        return "redirect:addItem-success";
+    }
+
+
+    /**
      * POST /addItem is the request for adding an item to the cart.
      * If the user is not logged in, redirect to the login page.
      * Otherwise, add the item to the cart and redirect to the webshop.
@@ -56,8 +80,8 @@ public class WebShopController {
      * @param ra
      * @return viewStringURL
      */
-    @PostMapping("/addItem")
-    public String addItem(@RequestParam("item") String item,
+    @GetMapping("/addItem-success")
+    public String addItem(@ModelAttribute("item") Item item,
                           HttpSession session,
                           RedirectAttributes ra) {
 
@@ -69,17 +93,11 @@ public class WebShopController {
         // Get the cart from the session
         Cart cart = (Cart) session.getAttribute("cart");
 
-        // Check if the item can be added to the cart
-        if (item == null || item.isEmpty()) {
-            ra.addFlashAttribute("redirectMessage", ITEM_EMPTY_MESSAGE);
-            return "redirect:" + WEBSHOP_URL;
-
-        } else if (cart.itemExists(item)) {
+        if (cart.itemExists(item)) {
             ra.addFlashAttribute("redirectMessage", ITEM_EXISTS_MESSAGE);
             return "redirect:" + WEBSHOP_URL;
-
         } else {
-            cart.addItem(new Item(item));
+            cart.addItem(new Item(item.getName()));
         }
 
         return "redirect:" + WEBSHOP_URL;
@@ -107,6 +125,11 @@ public class WebShopController {
         }
         // Get the cart from the session
         Cart cart = (Cart) session.getAttribute("cart");
+
+        if (!cart.itemExists(item)) {
+            ra.addFlashAttribute("redirectMessage", ITEM_NO_EXISTS_MESSAGE);
+            return "redirect:" + WEBSHOP_URL;
+        }
 
         cart.removeItem(item);
 

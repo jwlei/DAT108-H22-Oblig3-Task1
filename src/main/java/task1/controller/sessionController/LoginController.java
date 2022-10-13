@@ -57,4 +57,17 @@ public class LoginController {
 
         return "redirect:" + WEBSHOP_URL;
     }
+
+
+    /**
+     * Log out the user and redirect to the login page.
+     * For testing purposes
+     * @param session
+     * @return viewStringURL
+     */
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        SessionUtility.logOut(session);
+        return "redirect:" + LOGIN_URL;
+    }
 }

@@ -3,9 +3,11 @@ package task1.utility;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.beans.PropertyEditorSupport;
+
 
 @Component
-public class InputValidator {
+public class InputValidator extends PropertyEditorSupport {
 
      private static String PASSWORD;
 
