@@ -4,15 +4,16 @@
 <html>
 <head>
 	<title>Task 1 - WebShop</title>
-	<link rel="stylesheet" href="css/simple.css">
+	<link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
-	<h1>My shared list</h1>
+	<h1>Cart</h1>
 	<form action="addItem" method="post">
-	  <fieldset><legend>Add a new item to basket</legend>
+	  <fieldset><legend>Add a new item to cart</legend>
 	       <input type="text" name="item" />
-	    <p><input type="submit" value="Add to basket" /></p>
+	    <p><input type="submit" value="Add to cart" /></p>
+		  <span style="color:red">${redirectMessage}</span>
 	  </fieldset>
 	</form>
 
@@ -20,7 +21,7 @@
 		<th>Item:</th>
 	</tr>
 		<c:forEach var="item" items="${cart.items}"><tr>
-			<td><button id="remove"></button>${item.name}</td>
+			<td><button id="remove">Delete</button>${item.name}</td>
 		</tr></c:forEach>
 	</table><br>
 	<a href="${pageContext.request.contextPath}index.html">Return to index</a>

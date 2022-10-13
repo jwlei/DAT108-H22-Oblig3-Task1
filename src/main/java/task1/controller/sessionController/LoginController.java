@@ -1,15 +1,14 @@
-package task1.controller.login;
+package task1.controller.sessionController;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
 import task1.utility.InputValidator;
-import task1.utility.LoginUtility;
+import task1.utility.SessionUtility;
 
 @Controller
 @SessionAttributes
@@ -49,7 +48,7 @@ public class LoginController {
             ra.addFlashAttribute("redirectMessage", INVALID_PASSWORD_MESSAGE);
             return "redirect:" + LOGIN_URL;
         }
-        LoginUtility.logIn(session);
+        SessionUtility.logIn(session);
 
         return "redirect:" + WEBSHOP_URL;
     }
