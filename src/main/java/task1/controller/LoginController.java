@@ -7,6 +7,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.util.HtmlUtils;
 import task1.utility.InputUtility;
 import task1.utility.SessionUtility;
 
@@ -49,7 +50,7 @@ public class LoginController {
                            HttpSession session,
                            RedirectAttributes ra) {
 
-        if (!InputUtility.isValidPassword(password)) {
+        if (!InputUtility.isValidPassword(HtmlUtils.htmlEscape(password))) {
             ra.addFlashAttribute("redirectMessage", INVALID_PASSWORD_MESSAGE);
             return "redirect:" + LOGIN_URL;
         }

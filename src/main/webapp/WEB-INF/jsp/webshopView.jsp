@@ -9,11 +9,11 @@
 
 <body>
 	<h1>Cart</h1>
-	<div style="min-width: 150px; width: 10vw; display: flex; flex-direction: column; justify-content: center">
+	<div style="min-width: 150px; width: 15vw; display: flex; flex-direction: column; justify-content: center">
 		<form action="addItem" method="post">
 		  <fieldset>
 			  <legend>Add a new item to cart</legend>
-			  	<input type="text" name="item" autocomplete="off"/>
+			  	<input type="text" name="item" autocomplete="off" placeholder="2-20 chars"/>
 				<input type="submit" value="Add to cart" />
 			  	<span style="color:red">${redirectMessage}</span>
 		  </fieldset>

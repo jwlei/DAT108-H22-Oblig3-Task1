@@ -22,21 +22,25 @@ public class Item {
     }
 
 
+    /**
+     * Checks if the name of the item is equal to the name of the other item.
+     * Overrides the equals method from the Object class.
+     * @param object
+     * @return boolean
+     */
     @Override
-    public boolean equals(Object obj) {
-        /**
-         * Checks if the name of the item is equal to the name of the other item.
-         */
-        if (this == obj) {
+    public boolean equals(Object object) {
+
+        if (this == object) {
             return false;
         }
-        if (obj == null) {
+        if (object == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != object.getClass()) {
             return false;
         }
-        Item other = (Item) obj;
+        Item other = (Item) object;
         return Objects.equals(name, other.name);
     }
 
