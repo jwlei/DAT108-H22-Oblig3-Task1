@@ -22,6 +22,8 @@ public class SessionUtility {
      */
     public static void logIn(HttpSession session) {
 
+        // logOut(request.getSession());
+
         if (isLoggedIn(session)) {
             session.getAttribute("cart");
 
