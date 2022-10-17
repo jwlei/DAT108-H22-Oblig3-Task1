@@ -2,7 +2,6 @@ package task1.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 public class Cart {
     private List<Item> items = new ArrayList<>();
