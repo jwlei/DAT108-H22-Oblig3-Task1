@@ -6,6 +6,13 @@ import java.util.List;
 public class Cart {
     private List<Item> items = new ArrayList<>();
 
+    /**
+     * Empty constructor
+     * Necessary for the @SessionAttributes annotation
+     */
+    public Cart() {
+    }
+
 
     /**
      * returns the list of items in the cart
@@ -31,14 +38,6 @@ public class Cart {
      */
     public void removeItem(Item item) {
         items.remove(item);
-    }
-
-
-    /**
-     * Empty constructor
-     * Necessary for the @SessionAttributes annotation
-     */
-    public Cart() {
     }
 
 

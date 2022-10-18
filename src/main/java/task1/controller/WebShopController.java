@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.HtmlUtils;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.springframework.web.util.HtmlUtils;
 import task1.model.Cart;
 import task1.model.Item;
 import task1.utility.SessionUtility;
@@ -25,15 +25,15 @@ public class WebShopController {
     @Value("${app.message.requiresLogin}") private String REQUIRES_LOGIN_MESSAGE;
     @Value("${app.message.itemExists}") private String ITEM_EXISTS_MESSAGE;
     @Value("${app.message.itemNoExists}") private String ITEM_NO_EXISTS_MESSAGE;
-    //@Value("${app.message.itemNameSize}") private String ITEM_NAME_SIZE_MESSAGE;
-    //@Value("${app.message.itemEmpty}") private String ITEM_EMPTY_MESSAGE;
+    // Omitted as per task instructions
+    // @Value("${app.message.itemNameSize}") private String ITEM_NAME_SIZE_MESSAGE;
+    // @Value("${app.message.itemEmpty}") private String ITEM_EMPTY_MESSAGE;
 
 
     /**
      * GET /webshop is the request for retrieving the webshop.
      * If the user is not logged in, redirect to the login page.
      * Otherwise, show the webshop.
-     *
      * @param session
      * @param ra
      * @return viewStringURL
@@ -41,7 +41,7 @@ public class WebShopController {
     @GetMapping("${app.url.webshop}")
     public  String getWebshop(HttpSession session, RedirectAttributes ra) {
 
-        if (session.getAttribute("loggedIn") == null) {
+        if (!SessionUtility.isLoggedIn(session)) {
             ra.addFlashAttribute("redirectMessage", REQUIRES_LOGIN_MESSAGE);
             return "redirect:" + LOGIN_URL;
         }
@@ -52,27 +52,32 @@ public class WebShopController {
 
 
     /**
-     * Validate the item, if valid redirect it to the addItem controller
+     * Validate the item, if valid redirect it to the addItem-valid controller
+     * which will add the item to the cart.
      * @param item
      * @param bindingResult
      * @param ra
      * @return viewStringURL
      */
     @PostMapping("/addItem")
-    public String validateItem(@Valid @ModelAttribute("item") Item item, BindingResult bindingResult, RedirectAttributes ra) {
+    public String validateItem(@Valid @ModelAttribute("item") Item item,
+                               BindingResult bindingResult,
+                               RedirectAttributes ra) {
 
         if (bindingResult.hasErrors()) {
-            //ra.addFlashAttribute("redirectMessage", ITEM_NAME_SIZE_MESSAGE);
+            // Error omitted as per task description
+            // ra.addFlashAttribute("redirectMessage", ITEM_NAME_SIZE_MESSAGE);
             return "redirect:" + WEBSHOP_URL;
         }
         ra.addFlashAttribute("item", item);
 
-        return "redirect:addItem-success";
+        return "redirect:addItem-valid";
     }
 
 
     /**
-     * POST /addItem is the request for adding an item to the cart.
+     * POST /addItem-valid is the request for adding an item to the cart
+     * after validation.
      * If the user is not logged in, redirect to the login page.
      * Otherwise, add the item to the cart and redirect to the webshop.
      * @param item
@@ -80,7 +85,7 @@ public class WebShopController {
      * @param ra
      * @return viewStringURL
      */
-    @GetMapping("/addItem-success")
+    @GetMapping("/addItem-valid")
     public String addItem(@ModelAttribute("item") Item item,
                           HttpSession session,
                           RedirectAttributes ra) {
@@ -90,9 +95,11 @@ public class WebShopController {
             ra.addFlashAttribute("redirectMessage", REQUIRES_LOGIN_MESSAGE);
             return "redirect:" + LOGIN_URL;
         }
+
         // Get the cart from the session
         Cart cart = (Cart) session.getAttribute("cart");
 
+        // Check if the item is already in the cart
         if (cart.itemExists(item)) {
             ra.addFlashAttribute("redirectMessage", ITEM_EXISTS_MESSAGE);
             return "redirect:" + WEBSHOP_URL;
@@ -100,7 +107,6 @@ public class WebShopController {
             // Escape HTML characters when using the item name from the form
             cart.addItem(new Item(HtmlUtils.htmlEscape(item.getName())));
         }
-
         return "redirect:" + WEBSHOP_URL;
     }
 
@@ -124,14 +130,15 @@ public class WebShopController {
             ra.addFlashAttribute("redirectMessage", REQUIRES_LOGIN_MESSAGE);
             return "redirect:" + LOGIN_URL;
         }
+
         // Get the cart from the session
         Cart cart = (Cart) session.getAttribute("cart");
 
+        // Check if the item has already been removed
         if (!cart.itemExists(item)) {
             ra.addFlashAttribute("redirectMessage", ITEM_NO_EXISTS_MESSAGE);
             return "redirect:" + WEBSHOP_URL;
         }
-
         cart.removeItem(item);
 
         return "redirect:" + WEBSHOP_URL;

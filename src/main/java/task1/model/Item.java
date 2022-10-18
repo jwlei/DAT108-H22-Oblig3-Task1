@@ -7,7 +7,6 @@ import java.util.Objects;
 
 public class Item {
 
-
     @NotBlank
     @Size(min = 2, max = 20, message = "{app.message.itemNameSize}")
     private String name;
