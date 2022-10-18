@@ -8,7 +8,6 @@ import javax.validation.constraints.Size;
 import java.util.Objects;
 
 
-@SessionScope
 public class Item {
 
     @NotBlank
