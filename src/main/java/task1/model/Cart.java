@@ -1,8 +1,13 @@
 package task1.model;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.web.context.annotation.SessionScope;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Scope("singleton")
+@SessionScope
 public class Cart {
     private List<Item> items = new ArrayList<>();
 

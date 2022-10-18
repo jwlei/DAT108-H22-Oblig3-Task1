@@ -1,10 +1,14 @@
 package task1.model;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.web.context.annotation.SessionScope;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
 
+@SessionScope
 public class Item {
 
     @NotBlank
